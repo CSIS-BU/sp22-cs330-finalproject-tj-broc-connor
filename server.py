@@ -1,5 +1,6 @@
 import sys
 import socket
+import random
 
 RECV_BUFFER_SIZE = 2048
 QUEUE_LENGTH = 10
@@ -22,6 +23,13 @@ def main():
         sys.exit("Please enter the port to run the server on")
     server_port = int(sys.argv[1])
     server(server_port)
+
+def game():
+    int randNum = random.randint(0, 1000)
+    int guess = -1
+
+    while(guess != randNum):
+        # MAIN GUESSING GAME METHOD
 
 if__name__ == "__main__":
     main()
