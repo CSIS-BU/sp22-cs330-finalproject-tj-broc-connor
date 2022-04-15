@@ -14,7 +14,8 @@ def server(server_port):
     
         while True:
             (clientsocket, address) = serversocket.accept
-            # FUNCTION TO RUN GAME LOOP HERE
+            if(game() == False)
+                break
     pass
 
 def main():
@@ -27,9 +28,26 @@ def main():
 def game():
     int randNum = random.randint(0, 1000)
     int guess = -1
+    int guessCount = 0
 
+    # SEND STARTING MESSAGE
     while(guess != randNum):
-        # MAIN GUESSING GAME METHOD
+        # INPUT NEW GUESS FROM CLIENT AND VALIDATE IT
+        guessCount += 1
+        if guess == randNum:
+            break
+        elif guess > randNum:
+            # SEND GUESS IS TOO HIGH MESSAGE
+        else:
+            # SEND GUESS IS TOO LOW MESSAGE
+    
+    # SEND VICTORY MESSAGE AND GUESS COUNT
+    # INPUT WHETHER THE PLAYER WANTS TO PLAY AGAIN
+    
+    if(): #PLAYER DOES NOT WANT TO START AGAIN
+        return False
+    else(): # PLAYER WANTS TO START AGAIN
+        return True
 
 if__name__ == "__main__":
     main()
