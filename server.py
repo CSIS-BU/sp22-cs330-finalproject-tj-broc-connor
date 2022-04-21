@@ -17,11 +17,16 @@ def main():
     if len(sys.argv) != 2:
         sys.exit("Please enter the port to run the server on")
     server_port = int(sys.argv[1])
+
+    # Create server socket
     serversocket = socket(AF_INET, SOCK_STREAM)
     serversocket.bind((",server_port))
     serversocket.listen(QUEUE_LENGTH)
+    
+    # Listen for connections
     while 1:
         (clientsocket, address) = serversocket.accept()
+        # If a client connects, run the server() function to start game 
         threading.Thread(target = server, args = (clientsocket)).start()
 
 def game(clientsocket):
