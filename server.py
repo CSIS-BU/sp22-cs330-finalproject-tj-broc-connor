@@ -9,7 +9,7 @@ QUEUE_LENGTH = 10
 
 def server(clientsocket):
     while True:        
-        if(game(clientsocket) == False)
+        if(game(clientsocket) == False):
             break
     pass
 
