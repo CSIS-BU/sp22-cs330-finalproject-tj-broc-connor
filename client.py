@@ -19,7 +19,7 @@ def client(server_ip, server_port):
         while playing: 
             
             #Input for number
-            guess = input("Input your guess: ")
+            guess = input("")
             s.send(guess.encode('ascii'))
             
             #Logic for figuring out if guess is correct
@@ -28,7 +28,7 @@ def client(server_ip, server_port):
 
             #If guess was correct play again?
             #If guess is wrong input another number
-            if(response == "Thanks for playing!\r\n"):
+            if(response == "Thanks for playing!"):
                 playing = 0
         s.close()
     pass 
