@@ -19,7 +19,7 @@ def main():
 
     # Create server socket
     serversocket = socket(AF_INET, SOCK_STREAM)
-    serversocket.bind((",server_port))
+    serversocket.bind((localhost,server_port))
     serversocket.listen(QUEUE_LENGTH)
     
     # Listen for connections
@@ -29,16 +29,16 @@ def main():
         threading.Thread(target = server, args = (clientsocket)).start()
 
 def game(clientsocket):
-    int randNum = random.randint(0, 1000)
-    int guess = -1
-    int guessCount = 0
+    randNum = random.randint(0, 1000)
+    guess = -1
+    guessCount = 0
 
     welcome = "Welcome to Guessing Game :)\n Enter a Number From 0-1000.\n"
     clientsocket.send(welcome.encode('ascii'))
 
     while guess != randNum:
         guessString = "string"
-        bool convertedCorrectly = False
+        convertedCorrectly = False
         while convertedCorrectly != True:
             guessString = clientsocket.recv(RECV_BUFFER_SIZE).decode()
             try:
@@ -63,7 +63,7 @@ def game(clientsocket):
     clientsocket.send(victory.encode('ascii'))
 
     replay = clientsocket.recv(RECV_BUFFER_SIZE).decode()
-    while replay[0] != "y" and replay[0] != "Y" and replay[0] != "n" and replay[0] != "N"
+    while replay[0] != "y" and replay[0] != "Y" and replay[0] != "n" and replay[0] != "N":
         incorrectReplay = "Please enter either y(replay) or n(exit).\n"
         clientsocket.send(incorrectReplay.encode('ascii'))
         replay = clientsocket.recv(RECV_BUFFER_SIZE).decode()
@@ -73,6 +73,6 @@ def game(clientsocket):
     else: # PLAYER WANTS TO START AGAIN
         return True
 
-if__name__ == "__main__":
+if __name__ == "__main__":
     main()
         

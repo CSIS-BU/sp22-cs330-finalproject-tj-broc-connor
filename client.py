@@ -15,7 +15,6 @@ def client(server_ip, server_port):
         answer = s.recv(1024)
         print(answer.decode('ascii'))
 
-
         playing = 1
         while playing: 
             
@@ -25,11 +24,11 @@ def client(server_ip, server_port):
             
             #Logic for figuring out if guess is correct
             response = s.recv(1024).decode('ascii')
-	        print (response)
+            print(response)
 
             #If guess was correct play again?
             #If guess is wrong input another number
-            if(response == "Thanks for playing!\r\n")
+            if(response == "Thanks for playing!\r\n"):
                 playing = 0
         s.close()
     pass 
@@ -38,7 +37,7 @@ def client(server_ip, server_port):
 def main(): 
     """Parse command-line arguments and call client function """ 
     if len(sys.argv) != 2: 
-        sys.exit("Usage: python3 client.py [Server IP] ") 
+        sys.exit("Usage: python3 client.py [Server IP]") 
     server_ip = sys.argv[1] 
     server_port = 15000
     client(server_ip, server_port) 
