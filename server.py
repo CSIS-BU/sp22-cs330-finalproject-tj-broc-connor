@@ -1,3 +1,4 @@
+import socketserver
 import sys
 import socket
 import random
@@ -32,23 +33,44 @@ def game(clientsocket):
     int guess = -1
     int guessCount = 0
 
-    # SEND STARTING MESSAGE
-    while(guess != randNum):
-        # INPUT NEW GUESS FROM CLIENT AND VALIDATE IT
+    welcome = "Welcome to Guessing Game :)\n Enter a Number From 0-1000.\n"
+    clientsocket.send(welcome.encode('ascii'))
+
+    while guess != randNum:
+        guessString = "string"
+        bool convertedCorrectly = False
+        while convertedCorrectly != True:
+            guessString = clientsocket.recv(RECV_BUFFER_SIZE).decode()
+            try:
+                guess = int(guessString)
+                convertedCorrectly = True
+            except ValueError:
+                convertedCorrectly = False
+                error = "Please input a valid number.\n"
+                clientsocket.send(error.encode('ascii'))
+
         guessCount += 1
         if guess == randNum:
             break
         elif guess > randNum:
-            # SEND GUESS IS TOO HIGH MESSAGE
+            tooHigh = "That number is too high. Guess another number!\n"
+            clientsocket.send(tooHigh.encode('ascii'))
         else:
-            # SEND GUESS IS TOO LOW MESSAGE
+            tooLow = "That number is too low. Guess another number!\n"
+            clientsocket.send(tooLow.encode('ascii'))
     
-    # SEND VICTORY MESSAGE AND GUESS COUNT
-    # INPUT WHETHER THE PLAYER WANTS TO PLAY AGAIN
-    
-    if(): #PLAYER DOES NOT WANT TO START AGAIN
+    victory = "You Won in " + str(guessCount) + " guesses!\nPlay again? (y/n)\n"
+    clientsocket.send(victory.encode('ascii'))
+
+    replay = clientsocket.recv(RECV_BUFFER_SIZE).decode()
+    while replay[0] != "y" and replay[0] != "Y" and replay[0] != "n" and replay[0] != "N"
+        incorrectReplay = "Please enter either y(replay) or n(exit).\n"
+        clientsocket.send(incorrectReplay.encode('ascii'))
+        replay = clientsocket.recv(RECV_BUFFER_SIZE).decode()
+
+    if replay == "n" or replay == "N": #PLAYER DOES NOT WANT TO START AGAIN
         return False
-    else(): # PLAYER WANTS TO START AGAIN
+    else: # PLAYER WANTS TO START AGAIN
         return True
 
 if__name__ == "__main__":
