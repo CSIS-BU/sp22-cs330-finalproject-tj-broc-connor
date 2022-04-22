@@ -13,10 +13,8 @@ def server(clientsocket):
     pass
 
 def main():
-    # make sure they enter server port
-    if len(sys.argv) != 2:
-        sys.exit("Please enter the port to run the server on")
-    server_port = int(sys.argv[1])
+
+    server_port = 15000
 
     # Create server socket
     serversocket = socket(AF_INET, SOCK_STREAM)

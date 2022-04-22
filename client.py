@@ -9,27 +9,38 @@ def client(server_ip, server_port):
         # now connect to server 
         s.connect((server_ip, server_port)) 
          
-        while True: 
-            content = sys.stdin.buffer.read(SEND_BUFFER_SIZE) 
-            #Game Logic Here
-            #Some sort of intro needed, response 1 here (play or not)
+        #Game Logic Here
+        #Some sort of intro needed, response 1 here (play or not)
+
+        answer = s.recv(1024)
+        print(answer.decode('ascii'))
+
+
+        playing = 1
+        while playing: 
+            
             #Input for number
+            guess = input("Input your guess: ")
+            s.send(guess.encode('ascii'))
+            
             #Logic for figuring out if guess is correct
+            response = s.recv(1024).decode('ascii')
+	        print (response)
+
             #If guess was correct play again?
             #If guess is wrong input another number
-            if not content: break 
-            sent = s.sendall(content) 
-            if sent == 0: 
-                raise RuntimeError("socket connection broken") 
+            if(response == "Thanks for playing!\r\n")
+                playing = 0
+        s.close()
     pass 
  
  
 def main(): 
     """Parse command-line arguments and call client function """ 
-    if len(sys.argv) != 3: 
-        sys.exit("Usage: python3 client-python.py [Server IP] [Server Port] < [message]") 
+    if len(sys.argv) != 2: 
+        sys.exit("Usage: python3 client.py [Server IP] ") 
     server_ip = sys.argv[1] 
-    server_port = int(sys.argv[2]) 
+    server_port = 15000
     client(server_ip, server_port) 
  
 if __name__ == "__main__": 
