@@ -8,9 +8,6 @@ def client(server_ip, server_port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: 
         # now connect to server 
         s.connect((server_ip, server_port)) 
-         
-        #Game Logic Here
-        #Some sort of intro needed, response 1 here (play or not)
 
         answer = s.recv(1024)
         print(answer.decode('ascii'))
@@ -18,16 +15,15 @@ def client(server_ip, server_port):
         playing = 1
         while playing: 
             
-            #Input for number
+            #Input for number and send to server
             guess = input("")
             s.send(guess.encode('ascii'))
             
-            #Logic for figuring out if guess is correct
+            #Get response from server and print
             response = s.recv(1024).decode('ascii')
             print(response)
 
-            #If guess was correct play again?
-            #If guess is wrong input another number
+            #If server sends game ending response, exit
             if(response == "Thanks for playing!"):
                 playing = 0
         s.close()
