@@ -30,17 +30,24 @@ def main():
         # If a client connects, run the server() function to start game 
         threading.Thread(target = server, args = (clientsocket,)).start()
 
+# Main logic for the game
 def game(clientsocket):
+    #Generate a random number and instantiate necessary variables
     randNum = random.randint(0, 1000)
     guess = -1
     guessCount = 0
 
+    # Send welcome message
     welcome = "Welcome to Guessing Game :)\nEnter a Number From 0-1000."
     clientsocket.send(welcome.encode('ascii'))
 
+    # Main gameplay loop while the number hasn't been guessed
     while guess != randNum:
+        # Initialize loop variables
         guessString = "string"
         convertedCorrectly = False
+
+        # 
         while convertedCorrectly != True:
             guessString = clientsocket.recv(RECV_BUFFER_SIZE).decode()
             try:
@@ -70,11 +77,11 @@ def game(clientsocket):
         clientsocket.send(incorrectReplay.encode('ascii'))
         replay = clientsocket.recv(RECV_BUFFER_SIZE).decode()
 
-    if replay == "n" or replay == "N": #PLAYER DOES NOT WANT TO START AGAIN
+    if replay == "n" or replay == "N": #Player enters n or N, and the game stops
         goodbye = "Thanks for playing!"
         clientsocket.send(goodbye.encode('ascii'))
         return False
-    else: # PLAYER WANTS TO START AGAIN
+    else: #Player enters y or Y, and the game repeats
         return True
 
 if __name__ == "__main__":
