@@ -1,0 +1,13 @@
+How to compile/execute:
+    1. Run server.py (no arguments are needed)
+	Example: python server.py
+    2. Open another terminal window
+    3. Run client.py in the new terminal window - provide the IP address of the server as an argument
+ 	Example for localhost: python client.py 127.0.0.1
+    4. If you want to connect another client to the server at the same time, repeat steps 2-3
+
+How to play:
+	Mostly, follow the on screen prompts. The client program will display a welcome message
+	then ask you to enter a guess 1-1000. Continue guessing until you get the correct number.
+	When you win, you will be asked if you want to play again. Reply y to play again or n to 
+	stop. 
